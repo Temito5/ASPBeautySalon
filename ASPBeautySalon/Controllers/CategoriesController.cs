@@ -54,8 +54,9 @@ namespace ASPBeautySalon.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,DateRegOn")] Category category)
+        public async Task<IActionResult> Create([Bind("Name,Description,DateRegOn")] Category category)
         {
+            category.DateRegOn = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(category);
@@ -88,6 +89,7 @@ namespace ASPBeautySalon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,DateRegOn")] Category category)
         {
+            category.DateRegOn = DateTime.Now;
             if (id != category.Id)
             {
                 return NotFound();

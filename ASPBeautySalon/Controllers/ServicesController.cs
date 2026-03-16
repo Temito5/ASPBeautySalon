@@ -48,7 +48,7 @@ namespace ASPBeautySalon.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View();
         }
 
@@ -57,15 +57,16 @@ namespace ASPBeautySalon.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Description,Image,Price,PromoPercent,EndDate,DateRegOn")] Service service)
+        public async Task<IActionResult> Create([Bind("Name,CategoryId,Description,Image,Price,PromoPercent,EndDate,DateRegOn")] Service service)
         {
+            service.DateRegOn = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(service);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", service.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", service.CategoryId);
             return View(service);
         }
 
@@ -82,7 +83,7 @@ namespace ASPBeautySalon.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", service.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", service.CategoryId);
             return View(service);
         }
 
@@ -93,6 +94,7 @@ namespace ASPBeautySalon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryId,Description,Image,Price,PromoPercent,EndDate,DateRegOn")] Service service)
         {
+            service.DateRegOn = DateTime.Now;
             if (id != service.Id)
             {
                 return NotFound();
@@ -118,7 +120,7 @@ namespace ASPBeautySalon.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", service.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", service.CategoryId);
             return View(service);
         }
 
