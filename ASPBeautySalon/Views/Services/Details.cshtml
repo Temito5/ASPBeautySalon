@@ -1,0 +1,122 @@
+﻿@model ASPBeautySalon.Models.Service
+
+@{
+    ViewData["Title"] = "Детайли за услуга";
+
+    var hasPromo = Model.PromoPercent > 0;
+    var discountedPrice = hasPromo
+        ? Model.Price - (Model.Price * Model.PromoPercent / 100)
+        : Model.Price;
+}
+
+<div class="container py-5">
+    <div class="service-details-card">
+
+        <div class="image-container">
+            <img src="@Model.Image" alt="@Model.Name" />
+
+            @if (hasPromo)
+            {
+                <div class="promo-badge">
+                    -@Model.PromoPercent%
+                </div>
+            }
+            <button class="favorite-btn" type="button">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+
+        <div class="details-body">
+            <div>
+                <div class="top-row">
+                    <div>
+                        <h1 class="service-title">@Model.Name</h1>
+                        <p class="category">
+                            @Model.Categories.Name
+                        </p>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="price-box">
+                    @if (hasPromo)
+                    {
+                        <span class="old-price">@Model.Price.ToString("F2") €</span>
+                        <span class="new-price">@discountedPrice.ToString("F2") €</span>
+                    }
+                    else
+                    {
+                        <span class="new-price">@Model.Price.ToString("F2") €</span>
+                    }
+                </div>
+
+                <div class="info-grid">
+
+                    @if (hasPromo)
+                    {
+                        <div class="info-item">
+                            <span class="label">Промо до:</span>
+                            <span>@(Model.EndDate?.ToString("dd.MM.yyyy"))</span>
+                        </div>
+                    }
+
+                    <div class="info-item">
+                        <span class="label">Статус:</span>
+                        @if (hasPromo && Model.EndDate >= DateTime.Now)
+                        {
+                            <span class="status-active">Активна промоция</span>
+                        }
+                        else
+                        {
+                            <span class="status-normal">Стандартна услуга</span>
+                        }
+                    </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="info-item">
+                            <span class="label">Добавена на:</span>
+                            <span>@Model.DateRegOn.ToString("dd.MM.yyyy")</span>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="buttons">
+                <a asp-controller="Appointments" asp-action="Create" asp-route-serviceId="@Model.Id" class="btn-gold">
+                    Запази час
+                </a>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-dark">
+                        Редактирай
+                    </a>
+                }
+
+                <a asp-action="Index" class="btn-outline">
+                    Назад
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            this.classList.toggle('active');
+
+            const icon = this.querySelector('i');
+
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+            }
+        });
+    });
+</script>
