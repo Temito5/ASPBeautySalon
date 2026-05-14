@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ASPBeautySalon.Data
+@inject ApplicationDbContext _context
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,28 +27,59 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">За нас</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ForUs">За нас</a>
+                        </li>
+                        <li class="nav-item dropdown services-dropdown">
+                            <a class="nav-link text-dark"
+                               href="#"
+                               id="servicesDropdown"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Услуги
+                            </a>
+
+                            <ul class="dropdown-menu services-menu">
+                                <li>
+                                    <a class="dropdown-item services-menu-item"
+                                       asp-controller="Services"
+                                       asp-action="Index">
+                                        Всички услуги
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider services-divider" /></li>
+
+                                @foreach (var category in _context.Categories.OrderBy(c => c.Name).ToList())
+                                {
+                                    <li>
+                                        <a class="dropdown-item services-menu-item"
+                                           asp-controller="Services"
+                                           asp-action="ByCategory"
+                                           asp-route-categoryId="@category.Id">
+                                            @category.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Index">Услуги</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Offer">Оферти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Оферти</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Ekip">Екип</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Екип</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Контакти</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Контакти</a>
-                        </li>
-                        @if(User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Категории</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Поръчки</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="Index">Резервации</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -61,7 +94,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-            &copy; 2026 - ASPBeautySalon 
+        &copy; 2026 - ASPBeautySalon
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

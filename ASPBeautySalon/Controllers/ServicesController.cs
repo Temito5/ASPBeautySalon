@@ -162,7 +162,25 @@ namespace ASPBeautySalon.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> ByCategory(int categoryId)
+        {
+            var services = await _context.Services
+                .Where(s => s.CategoryId == categoryId)
+                .ToListAsync();
 
+            return View("Index", services);
+        }
+
+        public IActionResult Offer()
+        {
+            var services = _context.Services
+                .Include(s => s.Categories)
+                .Where(s => s.PromoPercent > 0)
+                .OrderBy(s => s.Name)
+                .ToList();
+
+            return View(services);
+        }
         private bool ServiceExists(int id)
         {
             return _context.Services.Any(e => e.Id == id);

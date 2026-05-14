@@ -1,46 +1,276 @@
 ﻿@model ASPBeautySalon.Models.Reservation
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Нова резервация";
 }
 
-<h1>Create</h1>
+<div class="booking-page">
 
-<h4>Reservation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ServiceId" class="control-label"></label>
-                <select asp-for="ServiceId" class ="form-control" asp-items="ViewBag.ServiceId"></select>
-            </div>
-           @*  <div class="form-group">
-                <label asp-for="ClientId" class="control-label"></label>
-                <select asp-for="ClientId" class ="form-control" asp-items="ViewBag.ClientId"></select>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="DateReservation" class="control-label"></label>
-                <input asp-for="DateReservation" class="form-control" />
-                <span asp-validation-for="DateReservation" class="text-danger"></span>
-            </div>
-            @* <div class="form-group">
-                <label asp-for="DateRegOn" class="control-label"></label>
-                <input asp-for="DateRegOn" class="form-control" />
-                <span asp-validation-for="DateRegOn" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    <section class="booking-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Резервирай своя час</h1>
+        </div>
+    </section>
+
+    <section class="booking-wrapper">
+
+        <div class="booking-card">
+
+            <form asp-action="Create">
+
+                <div asp-validation-summary="All" class="validation-box"></div>
+
+                <!-- SERVICE -->
+                <div class="form-group">
+                    <label class="form-label">Услуга</label>
+
+                    <select asp-for="ServiceId"
+                            id="serviceSelect"
+                            class="form-input"
+                            asp-items="ViewBag.ServiceId">
+                    </select>
+                </div>
+
+                <!-- DATE -->
+                <div class="form-group">
+                    <label class="form-label">Дата</label>
+
+                    <input type="date"
+                           id="reservationDate"
+                           class="form-input"
+                           min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
+
+                <!-- HOURS -->
+                <div class="form-group">
+
+                    <label class="form-label">Часове</label>
+
+                    <div class="time-grid">
+
+                        @for (int hour = 9; hour <= 20; hour++)
+                        {
+                            var time = $"{hour:D2}:00";
+
+                            <button type="button"
+                                    class="time-slot"
+                                    data-time="@time">
+
+                                @time
+
+                            </button>
+                        }
+
+                    </div>
+
+                    <input asp-for="DateReservation"
+                           type="hidden"
+                           id="DateReservation" />
+
+                    <span asp-validation-for="DateReservation"
+                          class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="booking-btn">
+                    Запази резервация
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+
+    body {
+        background: #f6f2ed;
+    }
+
+    .booking-page {
+        min-height: 100vh;
+        padding: 50px 20px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* HERO */
+    .booking-hero {
+        max-width: 1200px;
+        margin: auto;
+        background: #f6f2ed;
+        border-radius: 30px;
+        padding: 60px;
+        color: white;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .hero-tag {
+        color: #d4af37;
+        font-weight: 800;
+        letter-spacing: 3px;
+        font-size: 13px;
+    }
+
+    .hero-title {
+        font-size: 52px;
+        font-weight: 900;
+        margin-top: 15px;
+    }
+
+    .hero-subtitle {
+        opacity: 0.8;
+        margin-top: 10px;
+    }
+
+    /* CARD */
+    .booking-wrapper {
+        max-width: 1200px;
+        margin: -40px auto 0;
+    }
+
+    .booking-card {
+        background: white;
+        border-radius: 30px;
+        padding: 40px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    /* FORM */
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 800;
+        color: #2d2118;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 15px;
+        border: 1px solid #e7e1d8;
+        font-size: 15px;
+    }
+
+    /* TIME GRID */
+    .time-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+
+    /* TIME SLOT (PREMIUM CARD) */
+    .time-slot {
+        padding: 18px;
+        border-radius: 16px;
+        border: 1px solid #e7e1d8;
+        background: linear-gradient(145deg,#fff,#f7f3ee);
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.25s;
+        color: #2d2118;
+    }
+
+        .time-slot:hover {
+            transform: translateY(-3px);
+            border-color: #c7a03d;
+            box-shadow: 0 10px 20px rgba(199,160,61,0.15);
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg,#c7a03d,#e3bf58);
+            color: #1d1d1d;
+            border-color: transparent;
+        }
+
+        .time-slot.taken {
+            background: #f3f3f3;
+            color: #b94d4d;
+            border: 1px solid #f0c2c2;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+    /* BUTTON */
+    .booking-btn {
+        width: 100%;
+        padding: 18px;
+        border: none;
+        border-radius: 18px;
+        background: linear-gradient(135deg,#c7a03d,#e3bf58);
+        font-weight: 900;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .booking-btn:hover {
+            transform: translateY(-3px);
+        }
+
+    /* MOBILE */
+    @@media(max-width:900px) {
+        .time-grid {
+            grid-template-columns: repeat(2,1fr);
+        }
+
+        .hero-title {
+            font-size: 36px;
+        }
+    }
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+        const buttons = document.querySelectorAll(".time-slot");
+        const dateInput = document.getElementById("reservationDate");
+        const serviceSelect = document.getElementById("serviceSelect");
+        const hidden = document.getElementById("DateReservation");
+
+        async function loadTaken() {
+
+            if (!dateInput.value || !serviceSelect.value) return;
+
+            const res = await fetch(`/Reservations/GetTakenHours?date=${dateInput.value}&serviceId=${serviceSelect.value}`);
+            const taken = await res.json();
+
+            buttons.forEach(b => {
+
+                const t = b.dataset.time;
+
+                b.classList.remove("taken","selected");
+                b.disabled = false;
+
+                if (taken.includes(t)) {
+                    b.classList.add("taken");
+                    b.disabled = true;
+                }
+            });
+        }
+
+        dateInput.addEventListener("change", loadTaken);
+        serviceSelect.addEventListener("change", loadTaken);
+
+        buttons.forEach(b => {
+
+            b.addEventListener("click", function () {
+
+                if (this.classList.contains("taken")) return;
+
+                buttons.forEach(x => x.classList.remove("selected"));
+                this.classList.add("selected");
+
+                hidden.value = `${dateInput.value}T${this.dataset.time}`;
+            });
+
+        });
+
+    </script>
+
 }

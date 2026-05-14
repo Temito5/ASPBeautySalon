@@ -1,53 +1,319 @@
 ﻿@model IEnumerable<ASPBeautySalon.Models.Reservation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Поръчки";
 }
 
-<h1>Index</h1>
+<div class="reservations-page">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Services)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Clients)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateReservation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateRegOn)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Services.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Clients.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateReservation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateRegOn)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <!-- HERO -->
+    <section class="reservations-hero">
+
+        <div class="reservations-header">
+
+            <div>
+
+                <span class="page-tag">BEAUTY SALON</span>
+
+                <h1 class="reservations-title">
+                    Резервации
+                </h1>
+
+                <p class="reservations-subtitle">
+                    Преглед на всички резервации в системата.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CARDS -->
+    <section class="reservations-wrapper">
+
+        <div class="reservations-card">
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="reservations-grid">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="reservation-card">
+
+                            <!-- TOP -->
+                            <div class="card-top">
+
+                                <div class="service-icon">✂</div>
+
+                                <div>
+                                    <div class="service-name">
+                                        @item.Services?.Name
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- CLIENT -->
+                            <div class="card-client">
+                                👤 @item.Clients?.UserName
+                            </div>
+
+                            <!-- DATE -->
+                            <div class="card-datetime">
+
+                                <div class="date">
+                                    📅 @item.DateReservation.ToString("dd.MM.yyyy")
+                                </div>
+
+                                <div class="time">
+                                    ⏰ @item.DateReservation.ToString("HH:mm")
+                                </div>
+
+                            </div>
+
+                            <!-- CREATED -->
+                            <div class="card-created">
+                                Създадена: @item.DateRegOn.ToString("dd.MM.yyyy")
+                            </div>
+
+                            <!-- DETAILS ONLY -->
+                            <div class="card-actions">
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   class="btn-details-full">
+                                    Детайли
+                                </a>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            }
+            else
+            {
+                <div class="empty-reservations">
+
+                    <div class="empty-icon">✨</div>
+
+                    <h3>Няма резервации</h3>
+
+                    <p>Все още няма добавени записи.</p>
+
+                </div>
+            }
+
+        </div>
+
+    </section>
+
+</div>
+
+<style>
+
+    /* ===== BASE ===== */
+
+    :root {
+        --bg: #f3eee8;
+        --hero: #f7f2ec;
+        --card: #ffffff;
+        --gold: #c7a03d;
+        --gold-dark: #a8842f;
+        --text: #2d2118;
+        --soft: #6f7987;
+        --border: #eadfce;
+    }
+
+    /* PAGE */
+
+    .reservations-page {
+        background: var(--bg);
+        min-height: 100vh;
+        padding: 60px 40px 100px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* HERO */
+
+    .reservations-hero {
+        max-width: 1650px;
+        margin: auto;
+        background: var(--hero);
+        border-radius: 40px;
+        padding: 70px;
+        border: 1px solid var(--border);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+    }
+
+    .reservations-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .page-tag {
+        color: var(--gold);
+        font-weight: 800;
+        letter-spacing: 3px;
+        font-size: 14px;
+    }
+
+    .reservations-title {
+        font-size: 70px;
+        font-weight: 900;
+        color: var(--text);
+        margin: 10px 0 20px;
+    }
+
+    .reservations-subtitle {
+        font-size: 20px;
+        color: var(--soft);
+        max-width: 700px;
+    }
+
+    /* GRID */
+
+    .reservations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+    }
+
+    /* CARD */
+
+    .reservation-card {
+        background: var(--card);
+        border-radius: 25px;
+        padding: 25px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        transition: 0.3s;
+    }
+
+        .reservation-card:hover {
+            transform: translateY(-6px);
+        }
+
+    /* TOP */
+
+    .card-top {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .service-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 16px;
+        background: #f7f1e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: var(--gold);
+    }
+
+    .service-name {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text);
+    }
+
+    .service-id {
+        font-size: 13px;
+        color: #aaa;
+    }
+
+    /* CLIENT */
+
+    .card-client {
+        background: #f5eee4;
+        padding: 10px 14px;
+        border-radius: 20px;
+        font-weight: 700;
+        color: #6d5335;
+        margin: 10px 0;
+    }
+
+    /* DATE */
+
+    .card-datetime .date {
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .card-datetime .time {
+        font-weight: 700;
+        color: var(--gold);
+    }
+
+    /* CREATED */
+
+    .card-created {
+        font-size: 13px;
+        color: var(--soft);
+        margin: 10px 0 15px;
+    }
+
+    /* DETAILS BUTTON */
+
+    .card-actions {
+        display: flex;
+    }
+
+    .btn-details-full {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        border-radius: 25px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: #fff;
+        font-weight: 800;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-details-full:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+        }
+
+    /* EMPTY */
+
+    .empty-reservations {
+        text-align: center;
+        padding: 100px 20px;
+    }
+
+    .empty-icon {
+        width: 90px;
+        height: 90px;
+        margin: auto;
+        border-radius: 50%;
+        background: #f7f1e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: var(--gold);
+    }
+
+    /* RESPONSIVE */
+
+    @@media(max-width:900px) {
+
+        .reservations-title {
+            font-size: 42px;
+        }
+
+        .reservations-hero {
+            padding: 30px;
+        }
+    }
+</style>

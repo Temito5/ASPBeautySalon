@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ASPBeautySalon.Models.Service>
+
+@{
+    ViewData["Title"] = "Промоции";
+}
+
+<h1 class="page-title">Промоционални услуги</h1>
+
+<div class="services-container">
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="top-actions">
+            <a class="btn btn-add" asp-action="Create">
+                Добави нова услуга
+            </a>
+        </div>
+    }
+
+    <div class="services-grid">
+
+        @foreach (var item in Model)
+        {
+            var promoPrice = item.Price * (1 - item.PromoPercent / 100m);
+
+            <div class="service-card promo-card">
+
+                <div class="image-container">
+
+                    <img src="@item.Image" alt="@item.Name" />
+
+                    <div class="promo-badge">
+                        -@item.PromoPercent%
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div>
+
+                        <div class="service-title">
+                            @item.Name
+                        </div>
+
+                        <div class="service-category">
+                            @(item.Categories?.Name ?? "Няма категория")
+                        </div>
+
+                        <div class="service-description">
+                            @item.Description
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div class="price-box">
+
+                            <span class="old-price">
+                                @item.Price.ToString("F2") €
+                            </span>
+
+                            <span class="new-price">
+                                @promoPrice.ToString("F2") €
+                            </span>
+
+                        </div>
+
+                        <div class="buttons">
+
+                            <a class="btn btn-details"
+                               asp-action="Details"
+                               asp-route-id="@item.Id">
+                                Details
+                            </a>
+
+                            <a class="btn btn-book"
+                               asp-action="Create"
+                               asp-controller="Reservations"
+                               asp-route-serviceId="@item.Id">
+                                Запази час
+                            </a>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-edit"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.Id">
+                                    Edit
+                                </a>
+
+                                <a class="btn btn-delete"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.Id">
+                                    Delete
+                                </a>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

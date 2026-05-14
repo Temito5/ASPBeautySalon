@@ -18,11 +18,20 @@ namespace ASPBeautySalon.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult ForUs()
+        {
+            return View();
+        }
+       
+        public IActionResult Contacts()
         {
             return View();
         }
 
+        public IActionResult Ekip()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
