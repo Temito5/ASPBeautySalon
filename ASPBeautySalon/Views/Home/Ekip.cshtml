@@ -6,12 +6,10 @@
         Професионалисти с опит и внимание към детайла.
     </p>
 
-    <!-- ГЛАВНА СНИМКА -->
     <div class="team-main">
         <img src="/images/Ekip.png" alt="Нашият екип">
     </div>
 
-    <!-- ГАЛЕРИЯ -->
     <div class="team-gallery">
 
         <div class="team-card">
@@ -41,88 +39,3 @@
     </div>
 
 </section>
-
-<style>
-    .team {
-        padding: 100px 8%;
-        background: #fffaf7;
-        text-align: center;
-    }
-
-        .team h2 {
-            font-size: 52px;
-            margin-bottom: 15px;
-            color: #222;
-        }
-
-        .team p {
-            font-size: 20px;
-            color: #666;
-            margin-bottom: 60px;
-        }
-
-    /* ГЛАВНА СНИМКА */
-    .team-main {
-        margin-bottom: 60px;
-        overflow: hidden;
-        border-radius: 32px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-    }
-
-        .team-main img {
-            width: 100%;
-            height: 650px;
-            object-fit: cover;
-            display: block;
-        }
-
-    /* ГАЛЕРИЯ */
-    .team-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 35px;
-    }
-
-    .team-card {
-        overflow: hidden;
-        border-radius: 28px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        transition: 0.4s ease;
-        background: white;
-    }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .team-card img {
-            width: 100%;
-            height: 420px;
-            object-fit: cover;
-            display: block;
-        }
-
-    /* RESPONSIVE */
-    @@media (max-width: 768px) {
-
-        .team {
-            padding: 70px 5%;
-        }
-
-            .team h2 {
-                font-size: 38px;
-            }
-
-            .team p {
-                font-size: 18px;
-            }
-
-        .team-main img {
-            height: 400px;
-        }
-
-        .team-card img {
-            height: 320px;
-        }
-    }
-</style>

@@ -6,17 +6,16 @@
 
 <div class="details-page">
 
-    <!-- HERO -->
     <section class="details-hero">
 
         <div class="details-header">
 
             <div>
 
-                <span class="page-tag">RESERVATION DETAILS</span>
+                <span class="page-tag">Детайли на резервация</span>
 
                 <h1 class="details-title">
-                    Резервация #@Model.Id
+                    Резервация
                 </h1>
 
                 <p class="details-subtitle">
@@ -26,19 +25,17 @@
             </div>
 
             <a asp-action="Index" class="btn-back">
-                ← Назад
+                Назад
             </a>
 
         </div>
 
     </section>
 
-    <!-- CARD -->
     <section class="details-wrapper">
 
         <div class="details-card">
 
-            <!-- SERVICE -->
             <div class="details-item">
 
                 <div class="icon">✂</div>
@@ -52,7 +49,6 @@
 
             </div>
 
-            <!-- CLIENT -->
             <div class="details-item">
 
                 <div class="icon">👤</div>
@@ -66,7 +62,6 @@
 
             </div>
 
-            <!-- DATE -->
             <div class="details-item">
 
                 <div class="icon">📅</div>
@@ -80,7 +75,6 @@
 
             </div>
 
-            <!-- CREATED -->
             <div class="details-item">
 
                 <div class="icon">🕒</div>
@@ -99,161 +93,3 @@
     </section>
 
 </div>
-
-<style>
-
-    /* ===== BASE ===== */
-
-    :root {
-        --bg: #f3eee8;
-        --hero: #f7f2ec;
-        --card: #ffffff;
-        --gold: #c7a03d;
-        --gold-dark: #a8842f;
-        --text: #2d2118;
-        --soft: #6f7684;
-        --border: #eadfce;
-    }
-
-    /* PAGE */
-
-    .details-page {
-        background: var(--bg);
-        min-height: 100vh;
-        padding: 60px 40px 100px;
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    /* HERO */
-
-    .details-hero {
-        max-width: 1200px;
-        margin: auto;
-        background: var(--hero);
-        border-radius: 40px;
-        padding: 60px;
-        border: 1px solid var(--border);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.06);
-    }
-
-    .details-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    .page-tag {
-        color: var(--gold);
-        font-weight: 800;
-        letter-spacing: 3px;
-        font-size: 14px;
-    }
-
-    .details-title {
-        font-size: 58px;
-        font-weight: 900;
-        color: var(--text);
-        margin: 10px 0 15px;
-    }
-
-    .details-subtitle {
-        color: var(--soft);
-        font-size: 18px;
-    }
-
-    /* BACK BUTTON */
-
-    .btn-back {
-        padding: 14px 24px;
-        border-radius: 40px;
-        background: #fff;
-        border: 1px solid var(--border);
-        color: var(--text);
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-
-        .btn-back:hover {
-            background: #f7f1e5;
-            transform: translateY(-3px);
-        }
-
-    /* CARD */
-
-    .details-wrapper {
-        max-width: 1200px;
-        margin: 40px auto;
-    }
-
-    .details-card {
-        background: var(--card);
-        border-radius: 30px;
-        padding: 40px;
-        border: 1px solid var(--border);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 25px;
-    }
-
-    /* ITEM */
-
-    .details-item {
-        display: flex;
-        gap: 15px;
-        padding: 20px;
-        border-radius: 20px;
-        background: #faf7f2;
-        transition: 0.3s;
-    }
-
-        .details-item:hover {
-            transform: translateY(-4px);
-        }
-
-    .icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 16px;
-        background: #f7f1e5;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-        color: var(--gold);
-    }
-
-    /* TEXT */
-
-    .label {
-        font-size: 13px;
-        color: var(--soft);
-        font-weight: 700;
-        letter-spacing: 1px;
-    }
-
-    .value {
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--text);
-        margin-top: 4px;
-    }
-
-    /* RESPONSIVE */
-
-    @@media(max-width:900px) {
-
-        .details-card {
-            grid-template-columns: 1fr;
-        }
-
-        .details-title {
-            font-size: 36px;
-        }
-
-        .details-hero {
-            padding: 30px;
-        }
-    }
-</style>

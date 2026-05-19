@@ -20,7 +20,6 @@
 
                 <div asp-validation-summary="All" class="validation-box"></div>
 
-                <!-- SERVICE -->
                 <div class="form-group">
                     <label class="form-label">Услуга</label>
 
@@ -31,7 +30,6 @@
                     </select>
                 </div>
 
-                <!-- DATE -->
                 <div class="form-group">
                     <label class="form-label">Дата</label>
 
@@ -41,7 +39,6 @@
                            min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 </div>
 
-                <!-- HOURS -->
                 <div class="form-group">
 
                     <label class="form-label">Часове</label>
@@ -82,147 +79,6 @@
     </section>
 
 </div>
-
-<style>
-
-    body {
-        background: #f6f2ed;
-    }
-
-    .booking-page {
-        min-height: 100vh;
-        padding: 50px 20px;
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    /* HERO */
-    .booking-hero {
-        max-width: 1200px;
-        margin: auto;
-        background: #f6f2ed;
-        border-radius: 30px;
-        padding: 60px;
-        color: white;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-    }
-
-    .hero-tag {
-        color: #d4af37;
-        font-weight: 800;
-        letter-spacing: 3px;
-        font-size: 13px;
-    }
-
-    .hero-title {
-        font-size: 52px;
-        font-weight: 900;
-        margin-top: 15px;
-    }
-
-    .hero-subtitle {
-        opacity: 0.8;
-        margin-top: 10px;
-    }
-
-    /* CARD */
-    .booking-wrapper {
-        max-width: 1200px;
-        margin: -40px auto 0;
-    }
-
-    .booking-card {
-        background: white;
-        border-radius: 30px;
-        padding: 40px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    }
-
-    /* FORM */
-    .form-group {
-        margin-bottom: 30px;
-    }
-
-    .form-label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 800;
-        color: #2d2118;
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 14px;
-        border-radius: 15px;
-        border: 1px solid #e7e1d8;
-        font-size: 15px;
-    }
-
-    /* TIME GRID */
-    .time-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-    }
-
-    /* TIME SLOT (PREMIUM CARD) */
-    .time-slot {
-        padding: 18px;
-        border-radius: 16px;
-        border: 1px solid #e7e1d8;
-        background: linear-gradient(145deg,#fff,#f7f3ee);
-        font-weight: 800;
-        cursor: pointer;
-        transition: 0.25s;
-        color: #2d2118;
-    }
-
-        .time-slot:hover {
-            transform: translateY(-3px);
-            border-color: #c7a03d;
-            box-shadow: 0 10px 20px rgba(199,160,61,0.15);
-        }
-
-        .time-slot.selected {
-            background: linear-gradient(135deg,#c7a03d,#e3bf58);
-            color: #1d1d1d;
-            border-color: transparent;
-        }
-
-        .time-slot.taken {
-            background: #f3f3f3;
-            color: #b94d4d;
-            border: 1px solid #f0c2c2;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-    /* BUTTON */
-    .booking-btn {
-        width: 100%;
-        padding: 18px;
-        border: none;
-        border-radius: 18px;
-        background: linear-gradient(135deg,#c7a03d,#e3bf58);
-        font-weight: 900;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-        .booking-btn:hover {
-            transform: translateY(-3px);
-        }
-
-    /* MOBILE */
-    @@media(max-width:900px) {
-        .time-grid {
-            grid-template-columns: repeat(2,1fr);
-        }
-
-        .hero-title {
-            font-size: 36px;
-        }
-    }
-</style>
 
 @section Scripts {
 

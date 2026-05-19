@@ -4,18 +4,34 @@
     ViewData["Title"] = "Промоции";
 }
 
-<h1 class="page-title">Промоционални услуги</h1>
+<section class="services-hero">
 
-<div class="services-container">
+    <div class="services-header">
 
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="top-actions">
-            <a class="btn btn-add" asp-action="Create">
-                Добави нова услуга
-            </a>
+        <div>
+
+            <span class="page-tag">Цветен блясък</span>
+
+            <h1 class="services-title">
+                Промоционални услуги
+            </h1>
+
+            <p class="services-subtitle">
+                Разгледайте всички промоционални услуги в салона.
+            </p>
+
         </div>
-    }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn-create">
+                + Нова услуга
+            </a>
+        }
+
+    </div>
+
+</section>
 
     <div class="services-grid">
 
@@ -72,7 +88,7 @@
                             <a class="btn btn-details"
                                asp-action="Details"
                                asp-route-id="@item.Id">
-                                Details
+                                Детайли
                             </a>
 
                             <a class="btn btn-book"
@@ -87,13 +103,13 @@
                                 <a class="btn btn-edit"
                                    asp-action="Edit"
                                    asp-route-id="@item.Id">
-                                    Edit
+                                    Редактирай
                                 </a>
 
                                 <a class="btn btn-delete"
                                    asp-action="Delete"
                                    asp-route-id="@item.Id">
-                                    Delete
+                                    Изтрий
                                 </a>
                             }
 

@@ -1,15 +1,35 @@
 ﻿@model IEnumerable<ASPBeautySalon.Models.Service>
 
-<div class="services-container">
+<section class="services-hero">
 
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="top-actions">
-            <a class="btn btn-add" asp-action="Create">
-                Добави нова услуга
-            </a>
+    <div class="services-header">
+
+        <div>
+
+            <span class="page-tag">Цветен блясък</span>
+
+            <h1 class="services-title">
+                Услуги
+            </h1>
+
+            <p class="services-subtitle">
+                Разгледайте всички услуги в салона.
+            </p>
+
         </div>
-    }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn-create">
+                + Нова услуга
+            </a>
+        }
+
+    </div>
+
+</section>
+
+<div class="services-container">
 
     <div class="services-grid">
         @foreach (var item in Model)
@@ -41,17 +61,29 @@
                         <div class="price-box">
                             @if (item.PromoPercent > 0)
                             {
-                                <span class="old-price">@item.Price.ToString("F2")  €</span>
-                                <span class="new-price">@promoPrice.ToString("F2")  €</span>
+                                <span class="old-price">
+                                    @item.Price.ToString("F2") €
+                                </span>
+
+                                <span class="new-price">
+                                    @promoPrice.ToString("F2") €
+                                </span>
                             }
                             else
                             {
-                                <span class="new-price">@item.Price.ToString("F2") €</span>
+                                <span class="new-price">
+                                    @item.Price.ToString("F2") €
+                                </span>
                             }
                         </div>
 
                         <div class="buttons">
-                            <a class="btn btn-details" asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                            <a class="btn btn-details"
+                               asp-action="Details"
+                               asp-route-id="@item.Id">
+                                Детайли
+                            </a>
 
                             <a class="btn btn-book"
                                asp-action="Create"
@@ -62,9 +94,19 @@
 
                             @if (User.IsInRole("Admin"))
                             {
-                                <a class="btn btn-edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a class="btn btn-edit"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.Id">
+                                    Редактирай
+                                </a>
+
+                                <a class="btn btn-delete"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.Id">
+                                    Изтрий
+                                </a>
                             }
+
                         </div>
                     </div>
 
